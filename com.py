@@ -125,8 +125,6 @@ def rotate_left(number, rotation):
     rotate_gripper(rotation)
     
 # Top level commands
-
-
 def rotate_couronne(number, rotation):
     if number > 0 and number <= 3 :
         rotate_left(number, rotation)
@@ -135,6 +133,12 @@ def rotate_couronne(number, rotation):
         rotate_left(6-number, 360 - rotation)
         rotate_cube_horizontal(180)
 
+def rotate_top(angle):
+    rotate_cube_vertical(90)
+    rotate_plate(90)
+    rotate_left(1, angle)
+    rotate_plate(270)
+    rotate_cube_vertical(270)
 
 ser = serial.Serial('COM4', 115200, timeout=0.1)
 print(ser.name)
@@ -151,11 +155,6 @@ time.sleep(3)
 # led on 
 led_on()
 time.sleep(3)
-
-print("Move plate up")
-
-
-print("Move plate down")
 
 
 ser.close()
