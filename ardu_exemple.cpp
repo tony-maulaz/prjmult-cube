@@ -1,4 +1,5 @@
 #include <AccelStepper.h>
+#include <Servo.h>
 
 const int rotation_90 = 0;
 const int rotation_180 = 1;
@@ -39,20 +40,20 @@ const int LedPin = 13;
 
 // Commands
 Command cmd;
-const int cmd_led_on = 0;
+const int cmd_led_on = 0;                   // Port 0 (1cable)
 const int cmd_led_off = 1;
-const int cmd_fix_gripper_forward = 2;
+const int cmd_fix_gripper_forward = 2;      // Port 1 = pulse/ 
 const int cmd_fix_gripper_backward = 3;
-const int cmd_fix_gripper_open = 4;
+const int cmd_fix_gripper_open = 4;         // Port 2 (1cable)
 const int cmd_fix_gripper_close = 5;
-const int cmd_gripper_forward = 6;
+const int cmd_gripper_forward = 6;          // Port 3 ? 
 const int cmd_gripper_backward = 7;
-const int cmd_gripper_open = 8;
+const int cmd_gripper_open = 8;             // Port 4 (1cable)
 const int cmd_gripper_close = 9;
-const int cmd_rotate_gripper = 10;
-const int cmd_plate_up = 11;
+const int cmd_rotate_gripper = 10;          // Port 5 ? 
+const int cmd_plate_up = 11;                // Port 6 ? 
 const int cmd_plate_down = 12;
-const int cmd_rotate_plate = 13;
+const int cmd_rotate_plate = 13;            // Port 7 ? 
 
 const int cmd_get_status = 100;
 
@@ -164,8 +165,8 @@ void loop()
     // Traitement des commandes
     if (cmd.new_cmd)
     {
-        switch (cmd.cmd)
-        {
+        switch (cmd.cmd){
+
         case cmd_led_on:
             digitalWrite(LedPin, HIGH);
             Serial.write("1\n"); // command ok
@@ -183,6 +184,11 @@ void loop()
 
         case cmd_plate_up:
             move_plate_up();
+            Serial.write("1\n"); // command ok
+            break;
+            
+        case cmd_fix_gripper_open:
+            fix_gripper_open();
             Serial.write("1\n"); // command ok
             break;
 
